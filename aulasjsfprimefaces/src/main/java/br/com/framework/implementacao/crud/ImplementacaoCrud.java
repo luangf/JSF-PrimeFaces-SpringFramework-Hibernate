@@ -1,5 +1,6 @@
 package br.com.framework.implementacao.crud;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Query;
@@ -17,7 +18,7 @@ import br.com.framework.hibernate.session.HibernateUtil;
 import br.com.framework.interfac.crud.InterfaceCrud;
 
 @Component
-@Transactional //classe de transação com o BD
+@Transactional // classe de transação com o BD
 public class ImplementacaoCrud<T> implements InterfaceCrud<T> {
 
 	private static final long serialVersionUID = 1L;
@@ -42,98 +43,118 @@ public class ImplementacaoCrud<T> implements InterfaceCrud<T> {
 
 	@Override
 	public void save(T obj) throws Exception {
-		// TODO Auto-generated method stub
-
+		validaSessionFactory();
+		sessionFactory.getCurrentSession().save(obj);
+		executeFlushSession();
 	}
 
 	@Override
+	// basicamente nenhuma dif, so por didatica, de dois nomes para salvar, save e
+	// persist
 	public void persist(T obj) throws Exception {
-		// TODO Auto-generated method stub
-
+		validaSessionFactory();
+		sessionFactory.getCurrentSession().persist(obj);
+		executeFlushSession();
 	}
 
 	@Override
 	public void saveOrUpdate(T obj) throws Exception {
-		// TODO Auto-generated method stub
-
+		validaSessionFactory();
+		sessionFactory.getCurrentSession().saveOrUpdate(obj);
+		executeFlushSession();
 	}
 
 	@Override
 	public void update(T obj) throws Exception {
-		// TODO Auto-generated method stub
-
+		validaSessionFactory();
+		sessionFactory.getCurrentSession().update(obj);
+		executeFlushSession();
 	}
 
 	@Override
 	public void delete(T obj) throws Exception {
-		// TODO Auto-generated method stub
-
+		validaSessionFactory();
+		sessionFactory.getCurrentSession().delete(obj);
+		executeFlushSession();
 	}
 
 	@Override
 	public T merge(T obj) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		validaSessionFactory();
+		obj = (T) sessionFactory.getCurrentSession().merge(obj);
+		executeFlushSession();
+		return obj;
 	}
 
 	@Override
-	public List<T> findList(Class<T> obj) throws Exception {
-		// TODO Auto-generated method stub
+	public List<T> findList(Class<T> entidade) throws Exception {
+		validaSessionFactory();
+		StringBuilder query = new StringBuilder();
+		query.append(" select distinct(entity) from ").append(entidade.getSimpleName()).append(" entity ");
+		List<T> lista = sessionFactory.getCurrentSession().createQuery(query.toString()).list();
 		return null;
 	}
 
 	@Override
 	public Object findById(Class<T> entidade, Long id) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		validaSessionFactory();
+		Object obj=sessionFactory.getCurrentSession().load(getClass(), id);
+		return obj;
 	}
 
 	@Override
 	public T findPorId(Class<T> entidade, Long id) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		validaSessionFactory();
+		T obj=(T) sessionFactory.getCurrentSession().load(getClass(), id);
+		return obj;
 	}
 
 	@Override
 	public List<T> findListByQueryDinamica(String hql) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		validaSessionFactory();
+		List<T> lista=new ArrayList<T>();
+		lista=sessionFactory.getCurrentSession().createQuery(hql).list();
+		return lista;
 	}
 
 	@Override
 	public List<?> findListBySQLDinamica(String sql) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		validaSessionFactory();
+		List<?> lista=sessionFactory.getCurrentSession().createSQLQuery(sql).list();
+		return lista;
 	}
 
+	
+	
 	@Override
 	public void executeUpdateQueryDinamica(String hql) throws Exception {
-		// TODO Auto-generated method stub
-
+		validaSessionFactory();
+		sessionFactory.getCurrentSession().createQuery(hql).executeUpdate();
+		executeFlushSession();
 	}
 
 	@Override
 	public void executeUpdateSQLDinamica(String sql) throws Exception {
-		// TODO Auto-generated method stub
-
+		validaSessionFactory();
+		sessionFactory.getCurrentSession().createSQLQuery(sql).executeUpdate();
+		executeFlushSession();
 	}
 
 	@Override
 	public void clearSession() throws Exception {
-		// TODO Auto-generated method stub
-
+		sessionFactory.getCurrentSession().clear();
 	}
 
 	@Override
 	public void evict(Object obj) throws Exception {
-		// TODO Auto-generated method stub
-
+		validaSessionFactory();
+		sessionFactory.getCurrentSession().evict(obj);
 	}
 
 	@Override
 	public Session getSession() throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		validaSessionFactory();
+		return sessionFactory.getCurrentSession();
 	}
 
 	@Override
@@ -188,6 +209,13 @@ public class ImplementacaoCrud<T> implements InterfaceCrud<T> {
 
 	private void rollbackProcessoAjax() {
 		sessionFactory.getCurrentSession().beginTransaction().rollback();
+	}
+
+	/**
+	 * Roda instantaneamente o SQL no banco de dados
+	 */
+	private void executeFlushSession() {
+		sessionFactory.getCurrentSession().flush();
 	}
 
 }
