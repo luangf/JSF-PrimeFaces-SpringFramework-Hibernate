@@ -55,9 +55,18 @@ public abstract class BeanViewAbstract implements ActionViewPadrao {
 
 	@Override
 	public void statusOperation(StatusPersistencia a) throws Exception {
-
+		Messages.responseOperation(a);
 	}
 
+	//so quem sobreescrever tera acesso *
+	protected void sucesso() throws Exception {
+		statusOperation(StatusPersistencia.SUCESSO);
+	}
+	
+	protected void error() throws Exception {
+		statusOperation(StatusPersistencia.ERRO);
+	}
+	
 	@Override
 	public String redirecionarNewEntidade() throws Exception {
 		return null;
@@ -69,8 +78,8 @@ public abstract class BeanViewAbstract implements ActionViewPadrao {
 	}
 
 	@Override
-	public void addMsg() throws Exception {
-
+	public void addMsg(String msg) throws Exception {
+		Messages.msg(msg);
 	}
 
 }
