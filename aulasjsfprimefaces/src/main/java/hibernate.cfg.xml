@@ -22,9 +22,7 @@
 		<property name="hibernate.connection.autocommit">false</property>
 		<property name="hibernate.connection.pool_size">50</property>
 		
-		<!--
-		<mapping clas=""/>		
-		 -->
+		<mapping class="br.com.project.model.classes.Entidade"/>		
 		 
 		<listener class="org.hiber nate.envers.event.AuditEventListener" type="post-insert"/>
 		<listener class="org.hibernate.envers.event.AuditEventListener" type="post-update"/>
