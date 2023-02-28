@@ -24,13 +24,13 @@
 		
 		<mapping class="br.com.project.model.classes.Entidade"/>		
 		 
-		<listener class="org.hiber nate.envers.event.AuditEventListener" type="post-insert"/>
+		<listener class="org.hibernate.envers.event.AuditEventListener" type="post-insert"/>
 		<listener class="org.hibernate.envers.event.AuditEventListener" type="post-update"/>
 		<listener class="org.hibernate.envers.event.AuditEventListener" type="post-delete"/>
 		
 		<listener class="org.hibernate.envers.event.AuditEventListener" type="post-collection-recreate"/>
-		<listener class="org.hibernate.envers.event.AuditEventListener" type="post-collection-update"/>
-		<listener class="org.hibernate.envers.event.AuditEventListener" type="post-collection-remove"/>
+		<listener class="org.hibernate.envers.event.AuditEventListener" type="pre-collection-update"/>
+		<listener class="org.hibernate.envers.event.AuditEventListener" type="pre-collection-remove"/>
 		
     </session-factory>
 </hibernate-configuration>

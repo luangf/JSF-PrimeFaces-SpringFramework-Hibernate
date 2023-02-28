@@ -10,7 +10,7 @@
 		maxIdle="10"
 		maxWait="10"
 		initialSize="10"
-		driverClass="org.postgresql.Driver"
+		driverClassName="org.postgresql.Driver"
 		validationQuery="SELECT 'OK'"
 		testWhileIdle="true"
 		testOnBorrow="true"
