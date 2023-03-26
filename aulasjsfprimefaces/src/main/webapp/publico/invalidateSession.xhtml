@@ -27,7 +27,7 @@
 	
 	<h:body>
 		<div id="msgError" class="espacoMensagem">
-			<p:growl id="msg" showDetail="false" sticky="true" redisplay="true" autoUpdate="true" life="500"/>
+			<p:growl id="msg" showDetail="true" sticky="true" redisplay="true" autoUpdate="true" life="500"/>
 		</div>
 		
 		<p:dialog header="Encerrar Sessão" widgetVar="dlg" resizable="false" modal="true" closable="false">
@@ -55,11 +55,13 @@
 		});
 		
 		function handleLoginRequest(xhr, status, args){
-			if(!args.loggeIn){
+			alert(args.msgRetorno);
+			
+			if(!args.loggedIn){
 				PF('dlg').jq.effect("shake"), {times:5}, 100;
 			}else{
 				PF('dlg').hide();
-				logout('#{request.contextPath}');
+				document.location='#{request.contextPath}' + "/j_spring_security_logout";
 			}
 		}
 	</script>

@@ -110,7 +110,7 @@
 	<!-- Services -->
 	<bean id="srvLogin" class="br.com.srv.implementacao.SrvLoginImpl"/>
 	
-	<!-- DAOS -->
+	<!-- DAOS Repository-->
 	<bean id="repositoryLogin" class="br.com.dao.implementacao.DaoLogin"/>
 	
 	<!-- Controllers -->
