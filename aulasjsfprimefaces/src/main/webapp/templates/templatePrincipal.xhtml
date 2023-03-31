@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:sec="http://www.springframework.org/security/facelets/tags"
+	xmlns:p="http://primefaces.org/ui">
+
+<sec:isAuthenticated>
+
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title> 
+		<ui:insert name="titulo">Caixaki</ui:insert>
+	</title>
+	<h:outputScript name="primefaces.js" library="primefaces" id="jsPrime"/>
+	<h:outputScript name="jquery.js" library="primefaces/jquery" id="jsJquery"/>
+	<h:outputScript name="jquery-plugins.js" library="primefaces/jquery" id="jsJqueryPlugin"/>
+	<h:outputScript name="jquery.cookie.js" library="javascript" id="jsJaqueryCookie"/>
+	<h:outputStylesheet name="jquery-ui.css" library="primefaces/jquery/ui" id="jsJqueryUi"/>
+	<h:outputStylesheet name="primefaces.css" library="primefaces" id="jdPrimeCss"/>
+	<h:outputScript name="jquery.maskMoney.min.js" library="javascript" id="jsMaskMoneySistema"/>
+	<h:outputScript name="jquery.maskedinput.js" library="javascript" id="jsMaskInputSistema"/>
+	<h:outputScript name="scripty.js" library="javascript" id="jsScriptSistema"/>
+	<h:outputScript name="jsf.js" library="javax.faces"/>
+	<h:outputScript name="googlechart.js" library="javascript"/> 
+	<h:outputScript name="deployJava.js"  library="javascript" />
+</h:head>
+
+<h:form id="formTemplate" prependId="false">
+	<h:outputStylesheet id="cssStyleSistem" library="css" name="estilo.css"/>
+	<h:body>
+		<script type="text/javascript" charset="UTF-8">
+			/*sem conflito de bibliotecas, ajuda...*/
+			$.noConflit();
+			
+			/*Bloqueia F5, para n perder todos os dados q botou sem querer*/
+			$(document).keydown(function(e){
+				if(e.which == 116){
+					return 116;
+				}
+			})
+		</script>
+		
+		<ui:include src="/templates/barraProgresso.xhtml"/>
+		
+		<div id="msgError">
+			<p:growl id="msg" showDetail="false" sticky="true" redisplay="true" autoUpdate="true" life="6000"/>
+			<p:tooltip id="toolTipFocus" globalSelector="a,:input, :button" showEvent="focus" hideEvent="blur"/>
+		</div>
+		
+		<div id="container">
+		
+		</div>
+		
+	</h:body>
+</h:form>
+
+</sec:isAuthenticated>
+
+</html>
