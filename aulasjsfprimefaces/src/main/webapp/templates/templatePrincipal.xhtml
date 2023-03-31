@@ -50,7 +50,16 @@
 		</div>
 		
 		<div id="container">
-		
+			<div id="topo">
+				<span style="position:absolute; left:20px; top:14px;" id="spanLogo">
+					<h:graphicImage library="img" name="logo.png" id="logoImg" styleClass="bordaImagem"/>
+				</span>
+				<span id="dadoslogin">Usuário: #{entidadeBeanView.usuarioLogadoSecurity}</span>
+				<br id="quebraUser"/>
+				Último Login:
+				<h:outputLabel id="saidaUltimoAcesso" value="#{entidadeBeanView.ultimoAcesso}">
+				</h:outputLabel>
+			</div>		
 		</div>
 		
 	</h:body>
